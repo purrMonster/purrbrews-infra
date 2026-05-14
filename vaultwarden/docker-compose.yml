@@ -8,6 +8,9 @@ services:
     caps_drop:
       - ALL
     # Only allow essential networking and file ops
+    env_file:
+      - ../.env
+      - .env
     cap_add:
       - CHOWN
       - SETGID
