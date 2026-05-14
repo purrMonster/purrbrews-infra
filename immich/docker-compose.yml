@@ -55,6 +55,7 @@ services:
     # Ultra Optimization for NVMe random access
     command: >
       postgres
+      -c shared_preload_libraries=vchord
       -c shared_buffers=512MB
       -c random_page_cost=1.1
       -c effective_io_concurrency=200
