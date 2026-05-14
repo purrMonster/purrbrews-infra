@@ -4,7 +4,7 @@ services:
     container_name: vaultwarden
     restart: unless-stopped
     env_file:
-      - ../.env
+      - $PROJECT_DIR}/vaultwarden/.env
       - .env
     environment:
       - DOMAIN=https://vault.${DOMAIN}
