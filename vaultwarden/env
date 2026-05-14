@@ -1,0 +1,2 @@
+ADMIN_TOKEN='argon2...'
+#Generate an admin token using docker run --rm -it vaultwarden/server:latest /vaultwarden hash

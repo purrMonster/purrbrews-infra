@@ -1,0 +1,46 @@
+services:
+  vaultwarden:
+    image: vaultwarden/server:latest
+    container_name: vaultwarden
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    caps_drop:
+      - ALL
+    # Only allow essential networking and file ops
+    cap_add:
+      - CHOWN
+      - SETGID
+      - SETUID
+    environment:
+      - DOMAIN=https://vault.${DOMAIN}
+      - SIGNUPS_ALLOWED=false
+      - INVITATIONS_ALLOWED=true
+      - SHOW_PASSWORD_HINT=false
+      - ADMIN_TOKEN=${ADMIN_TOKEN}
+      
+      # Purelymail SMTP Settings
+      - SMTP_HOST=${SMTP_HOST}
+      - SMTP_FROM=vault@${DOMAIN}
+      - SMTP_PORT=${SMTP_PORT}
+      - SMTP_USERNAME=${EMAIL_USERNAME}
+      - SMTP_PASSWORD=${EMAIL_PASSWORD}
+      - SMTP_SECURITY=starttls
+      
+      # Hardening & Brute Force Protection
+      - LOGIN_RATELIMIT_MAX_BURST=5
+      - LOGIN_RATELIMIT_SECONDS=60
+      - ADMIN_RATELIMIT_MAX_BURST=3
+      - ADMIN_RATELIMIT_SECONDS=300
+      - SENDS_ALLOWED=true
+      - EMERGENCY_ACCESS_ALLOWED=true
+      
+    volumes:
+      - ${DATA_DIR}/vaultwarden:/data
+    ports:
+      - 8080:80
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/health"]
+      interval: 60s
+      timeout: 10s
+      retries: 3
