@@ -1,9 +1,9 @@
-DOMAIN="purrbrews.cc"
+DOMAIN="your domain_here.com"
 TZ="Asia/Kolkata"
 PROJECT_NAME="purrbrews"
-PROJECT_DIR="/home/penguin/purrbrews-infra/"
-DATA_DIR="/media/storage/purrbrews-data/"
-MEDIA_DIR="/media/large_dir/purrbrews-media/"
+PROJECT_DIR="path_to_your_project_directory_here"
+DATA_DIR="path_to_your_data_directory_here"
+MEDIA_DIR="path_to_your_media_directory_here"
 EMAIL_USERNAME="your_email_username_here"
 EMAIL_PASSWORD="your_email_password_here"
 EMAIL_PORT=587
