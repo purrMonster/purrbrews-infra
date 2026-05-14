@@ -12,7 +12,7 @@ services:
       - ${MEDIA_DIR}/immich:/usr/src/app/upload # PHOTOS ON SATA SSD
       - /etc/localtime:/etc/localtime:ro
     ports:
-      - ${IMMICH_PORT}:3001
+      - ${IMMICH_PORT}:2283
     depends_on:
       redis:
         condition: service_healthy
