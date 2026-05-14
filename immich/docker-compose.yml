@@ -1,0 +1,62 @@
+services:
+  immich-server:
+    container_name: immich_server
+    image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION:-release}
+    restart: unless-stopped
+    env_file:
+      - ../.env
+      - .env
+    devices:
+      - /dev/dri:/dev/dri # Intel QuickSync Passthrough
+    volumes:
+      - ${MEDIA_DIR}/immich:/usr/src/app/upload # PHOTOS ON SATA SSD
+      - /etc/localtime:ro
+    ports:
+      - ${IMMICH_PORT}:3001
+    depends_on:
+      redis:
+        condition: service_healthy
+      database:
+        condition: service_healthy
+
+  immich-machine-learning:
+    container_name: immich_machine_learning
+    image: ghcr.io/immich-app/immich-machine-learning:${IMMICH_VERSION:-release}
+    restart: unless-stopped
+    env_file:
+      - ../.env
+      - .env
+    volumes:
+      - ${DATA_DIR}/immich/model-cache:/cache # MODELS ON NVMe
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3003/health"]
+
+  redis:
+    container_name: immich_redis
+    image: registry.hub.docker.com/library/redis:6.2-alpine
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+
+  database:
+    container_name: immich_postgres
+    # The new 2026 VectorChord-optimized image
+    image: ghcr.io/immich-app/postgres:16-vectorchord0.4.3
+    restart: unless-stopped
+    env_file:
+      - ../.env
+      - .env
+    environment:
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_DB=${DB_DATABASE_NAME}
+    volumes:
+      - ${DATA_DIR}/immich/postgres:/var/lib/postgresql/data # DB ON NVMe
+    # Ultra Optimization for NVMe random access
+    command: >
+      postgres
+      -c shared_buffers=512MB
+      -c random_page_cost=1.1
+      -c effective_io_concurrency=200
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d ${DB_DATABASE_NAME} -U ${DB_USERNAME}"]
