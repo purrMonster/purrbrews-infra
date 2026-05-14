@@ -3,18 +3,9 @@ services:
     image: vaultwarden/server:latest
     container_name: vaultwarden
     restart: unless-stopped
-    security_opt:
-      - no-new-privileges:true
-    caps_drop:
-      - ALL
-    # Only allow essential networking and file ops
     env_file:
       - ../.env
       - .env
-    cap_add:
-      - CHOWN
-      - SETGID
-      - SETUID
     environment:
       - DOMAIN=https://vault.${DOMAIN}
       - SIGNUPS_ALLOWED=false
