@@ -1,0 +1,5 @@
+# --- Nextcloud Secrets ---
+NEXTCLOUD_DB_ROOT=ultra_secure_root_pass
+NEXTCLOUD_DB_PASS=app_specific_db_pass
+NC_ADMIN=purr_admin
+NC_PASS=your_super_strong_password
