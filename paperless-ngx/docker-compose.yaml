@@ -1,0 +1,49 @@
+services:
+  paperless-db:
+    image: docker.io/library/postgres:16-alpine
+    container_name: paperless-db
+    restart: always
+    volumes:
+      - ${DATA_DIR}/paperless/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=paperless
+      - POSTGRES_USER=paperless
+      - POSTGRES_PASSWORD=${PAPERLESS_DB_PASS}
+    networks:
+      - paperless-net
+
+  paperless-redis:
+    image: docker.io/library/redis:7-alpine
+    container_name: paperless-redis
+    restart: always
+    networks:
+      - paperless-net
+
+  paperless-webserver:
+    image: ghcr.io/paperless-ngx/paperless-ngx:latest
+    container_name: paperless-webserver
+    restart: always
+    depends_on:
+      - paperless-db
+      - paperless-redis
+    ports:
+      - 8010:8000
+    volumes:
+      - ${DATA_DIR}/paperless/data:/usr/src/paperless/data
+      - ${DATA_DIR}/paperless/export:/usr/src/paperless/export
+      # --- SATA Tier Storage ---
+      - ${MEDIA_DIR}/paperless/media:/usr/src/paperless/media
+      - ${MEDIA_DIR}/paperless/consume:/usr/src/paperless/consume
+    environment:
+      - PAPERLESS_REDIS=redis://paperless-redis:6379
+      - PAPERLESS_DBHOST=paperless-db
+      - PAPERLESS_DBPASS=${PAPERLESS_DB_PASS}
+      - PAPERLESS_OCR_LANGUAGE=eng
+      - PAPERLESS_TIME_ZONE=Asia/Kolkata
+      - PAPERLESS_URL=https://archive.purrbrews.cc
+    networks:
+      - paperless-net
+
+networks:
+  paperless-net:
+    driver: bridge
