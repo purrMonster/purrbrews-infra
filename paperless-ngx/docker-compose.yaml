@@ -25,8 +25,7 @@ services:
     restart: always
     depends_on:
       - paperless-db
-      - paperless-redis
-    ports:
+      - paperless-redis    ports:
       - 8010:8000
     volumes:
       - ${DATA_DIR}/paperless/data:/usr/src/paperless/data
@@ -40,7 +39,14 @@ services:
       - PAPERLESS_DBPASS=${PAPERLESS_DB_PASS}
       - PAPERLESS_OCR_LANGUAGE=eng
       - PAPERLESS_TIME_ZONE=Asia/Kolkata
-      - PAPERLESS_URL=https://archive.purrbrews.cc
+      - PAPERLESS_URL=https://archive.${DOMAIN}
+      - PAPERLESS_ADMIN_USER=${PAPERLESS_ADMIN}
+      - PAPERLESS_ADMIN_PASS=${PAPERLESS_ADMIN_PASS}
+      - PAPERLESS_EMAIL_HOST=${SMTP_HOST}
+      - PAPERLESS_EMAIL_PORT=${SMTP_PORT}
+      - PAPERLESS_EMAIL_HOST_USER=${EMAIL_USERNAME}
+      - PAPERLESS_EMAIL_HOST_PASSWORD=${EMAIL_PASSWORD}
+      - PAPERLESS_EMAIL_USE_TLS=true
     networks:
       - paperless-net
 
