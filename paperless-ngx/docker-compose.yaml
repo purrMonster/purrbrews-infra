@@ -25,7 +25,8 @@ services:
     restart: always
     depends_on:
       - paperless-db
-      - paperless-redis    ports:
+      - paperless-redis    
+    ports:
       - 8010:8000
     volumes:
       - ${DATA_DIR}/paperless/data:/usr/src/paperless/data
