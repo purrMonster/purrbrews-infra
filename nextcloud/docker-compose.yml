@@ -31,7 +31,7 @@ services:
       - nextcloud-db
       - nextcloud-redis
     ports:
-      - 8080:80 
+      - 8001:80 
     volumes:
       - ${DATA_DIR}/nextcloud/app:/var/www/html 
       - ${MEDIA_DIR}/nextcloud/data:/var/www/html/data 
