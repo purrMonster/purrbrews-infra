@@ -11,3 +11,4 @@ SMTP_PORT=587
 SMTP_HOST="smtp.your_email_provider.com"
 IMAP_PORT=993
 IMAP_HOST="imap.your_email_provider.com"
+REVERSE_PROXY_TUNNEL_IP="192.168.0.x"
