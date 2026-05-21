@@ -133,3 +133,51 @@ docker compose up -d
 ```
 
 - Confirm the service is healthy after restart.
+
+## 7. Deploy Nextcloud
+
+1. Change into the service directory:
+
+```bash
+cd nextcloud
+```
+
+2. Start the stack:
+
+```bash
+docker compose up -d
+```
+
+3. Verify via `https://<host>/nextcloud` (or configured domain/path)
+
+## 8. Deploy Paperless-NGX
+
+1. Change into the service directory:
+
+```bash
+cd paperless-ngx
+```
+
+2. Start the stack:
+
+```bash
+docker compose up -d
+```
+
+3. Verify the web UI at `http://<host>:8000` or configured port and confirm documents are being processed.
+
+## 9. Deploy Authentik
+
+1. Change into the service directory:
+
+```bash
+cd authentik
+```
+
+2. Start the stack:
+
+```bash
+docker compose up -d
+```
+
+3. Verify via the Authentik admin UI (configured domain/port) and complete initial setup.

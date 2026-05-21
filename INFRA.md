@@ -12,6 +12,9 @@ It provides a modular service architecture for Home Assistant, Immich, and Vault
 - `vaultwarden/` — Lightweight password manager with SMTP integration and hardened login controls.
 - `env` — Shared environment variable definitions used across services.
 
+- `nextcloud/` — Personal cloud and collaboration stack (Web UI, PHP-FPM, MariaDB/Postgres, optional Redis/filecache).
+- `paperless-ngx/` — Document scanning and OCR service backed by Postgres and media storage.
+
 ## Environment Management
 
 The repository uses a centralized `env` file for shared configuration values:
@@ -54,6 +57,16 @@ Each service also loads its own local `.env` file when required.
 - Redis provides session caching and queueing.
 - Postgres is tuned for NVMe with custom command options.
 - Hardware passthrough: `/dev/dri` for Intel QuickSync acceleration.
+
+### Nextcloud
+
+- Typical components: `nextcloud-fpm`, `db` (MariaDB/Postgres), optional `redis` cache, and a reverse proxy for TLS.
+- Stores user files at `${MEDIA_DIR}/nextcloud` and configs at `${DATA_DIR}/nextcloud`.
+
+### Paperless-NGX
+
+- Components: `paperless-ng-worker`, `paperless-ng-webserver`, `db` (Postgres), and `broker` (Redis) as needed.
+- Stores scanned documents and OCR output under `${MEDIA_DIR}/paperless-ngx`.
 
 ### Vaultwarden
 

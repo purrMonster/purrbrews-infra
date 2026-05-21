@@ -1,5 +1,15 @@
 # 📅 DAILY LOG
 
+## 2026-05-22
+
+- Changed system port configuration and related compose/network adjustments.
+
+## 2026-05-21
+
+- `paperless-ngx` — updated environment configuration and added SMTP/email support.
+- `nextcloud` — added Redis cache and SMTP support.
+- Repository: linting and code-style adjustments.
+
 ## 2026-05-15
 
 - `immich` service added with full Docker Compose orchestration.
@@ -7,6 +17,13 @@
 - `homeassistant` compose configuration updated to use shared environment and verify host device access.
 - `vaultwarden` environment integration improved with SMTP settings and security hardening.
 - Multiple Vaultwarden compose adjustments made to remove redundancy and enforce correct env file structure.
+
+## 2026-05-14
+
+- Standardized `env` handling across services.
+- `homeassistant` — initial compose/config additions.
+- `vaultwarden` — compose and env integration improvements.
+- Misc: typo fixes, removed redundant compose code, committed environment paths, and project bootstrap.
 
 ## Notes
 

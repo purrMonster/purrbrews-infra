@@ -10,8 +10,9 @@ NOTE: ALL DOCUMENTATIONS ARE AI GENERATED.
 | Maintenance | 🟢 Active / In progress |
 | Current Run Status | 🟢 RUNNING |
 | Last Updated | `2026-05-15` |
-| Total Services | `3` main stacks + support directories |
-| Healthchecks | ✅ Home Assistant, Immich, Vaultwarden |
+| Last Updated | `2026-05-22` |
+| Total Services | `7` stacks + support directories |
+| Healthchecks | ✅ Home Assistant, Immich, Vaultwarden, Nextcloud, Paperless-NGX |
 
 ---
 
@@ -48,6 +49,7 @@ NOTE: ALL DOCUMENTATIONS ARE AI GENERATED.
 ## 🚀 Runtime Metrics
 
 - `Docker Compose` stacks: `homeassistant`, `immich`, `vaultwarden`
+- `Docker Compose` stacks: `homeassistant`, `immich`, `vaultwarden`, `nextcloud`, `paperless-ngx`
 - `Env` sources: `env` (shared) + service-local env families
 - `Persistent storage`: `${DATA_DIR}`, `${MEDIA_DIR}`
 - `Hardware passthrough`: `/dev`, `/run/dbus`, `/dev/dri`
