@@ -41,7 +41,33 @@ IMAP_HOST="imap.example.com"
 IMAP_PORT=993
 ```
 
-## 2. Deploy Home Assistant
+## 2. Deploy Authelia
+
+1. Change into the service directory:
+
+```bash
+cd authelia
+```
+
+2. Configure secrets in `authelia/.env`:
+
+```bash
+AUTHELIA_JWT_SECRET="generate-a-secure-random-string"
+AUTHELIA_SESSION_SECRET="generate-a-secure-random-string"
+AUTHELIA_STORAGE_ENCRYPTION_KEY="generate-a-secure-random-string"
+AUTHELIA_REDIS_PASSWORD="generate-a-secure-random-password"
+AUTHELIA_STORAGE_POSTGRES_PASSWORD="generate-a-secure-random-password"
+```
+
+3. Start the stack:
+
+```bash
+docker compose up -d
+```
+
+4. Verify via `http://<host>:9091/api/health`
+
+## 3. Deploy Home Assistant
 
 1. Change into the service directory:
 
@@ -57,7 +83,7 @@ docker compose up -d
 
 3. Verify via `http://<host>:8123`
 
-## 3. Deploy Immich
+## 4. Deploy Immich
 
 1. Change into the service directory:
 
@@ -73,7 +99,39 @@ docker compose up -d
 
 3. Verify via `http://<host>:${IMMICH_PORT}`
 
-## 4. Deploy Vaultwarden
+## 5. Deploy Vikunja
+
+1. Change into the service directory:
+
+```bash
+cd vikunja
+```
+
+2. Start the stack:
+
+```bash
+docker compose up -d
+```
+
+3. Verify via `http://<host>:${VIKUNJA_HTTP_PORT:-3456}`
+
+## 6. Deploy Nextcloud
+
+1. Change into the service directory:
+
+```bash
+cd nextcloud
+```
+
+2. Start the stack:
+
+```bash
+docker compose up -d
+```
+
+3. Verify via `http://<host>:8001`
+
+## 7. Deploy Vaultwarden
 
 1. Change into the service directory:
 
@@ -91,7 +149,23 @@ docker compose up -d
 
 4. Verify via `http://<host>:8080`
 
-## 5. Common Commands
+## 8. Deploy Paperless-NGX
+
+1. Change into the service directory:
+
+```bash
+cd paperless-ngx
+```
+
+2. Start the stack:
+
+```bash
+docker compose up -d
+```
+
+3. Verify the web UI at `http://<host>:8000` or configured port and confirm documents are being processed.
+
+## 9. Common Commands
 
 - Start a service:
 
@@ -117,7 +191,7 @@ docker compose logs --follow
 docker compose config
 ```
 
-## 6. Upgrade Notes
+## 10. Upgrade Notes
 
 - Stop the service before updating if needed.
 - Pull the latest images:
@@ -133,51 +207,3 @@ docker compose up -d
 ```
 
 - Confirm the service is healthy after restart.
-
-## 7. Deploy Nextcloud
-
-1. Change into the service directory:
-
-```bash
-cd nextcloud
-```
-
-2. Start the stack:
-
-```bash
-docker compose up -d
-```
-
-3. Verify via `https://<host>/nextcloud` (or configured domain/path)
-
-## 8. Deploy Paperless-NGX
-
-1. Change into the service directory:
-
-```bash
-cd paperless-ngx
-```
-
-2. Start the stack:
-
-```bash
-docker compose up -d
-```
-
-3. Verify the web UI at `http://<host>:8000` or configured port and confirm documents are being processed.
-
-## 9. Deploy Authentik
-
-1. Change into the service directory:
-
-```bash
-cd authentik
-```
-
-2. Start the stack:
-
-```bash
-docker compose up -d
-```
-
-3. Verify via the Authentik admin UI (configured domain/port) and complete initial setup.

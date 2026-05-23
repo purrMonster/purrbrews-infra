@@ -7,9 +7,11 @@ It provides a modular service architecture for Home Assistant, Immich, and Vault
 
 ## Architecture Summary
 
+- `authelia/` — Authentication server and Single Sign-On (SSO) gateway with Redis session cache and Postgres backend.
 - `homeassistant/` — Home Assistant container with host networking and hardware passthrough for Zigbee/Z-Wave/Bluetooth.
 - `immich/` — Self-hosted photo management platform with Redis, Postgres, and machine learning services.
 - `vaultwarden/` — Lightweight password manager with SMTP integration and hardened login controls.
+- `vikunja/` — Task and project management platform with Postgres database and Redis caching.
 - `env` — Shared environment variable definitions used across services.
 
 - `nextcloud/` — Personal cloud and collaboration stack (Web UI, PHP-FPM, MariaDB/Postgres, optional Redis/filecache).
@@ -31,6 +33,31 @@ The repository uses a centralized `env` file for shared configuration values:
 Each service also loads its own local `.env` file when required.
 
 ## Service Details
+
+### Authelia
+
+- Image: `authelia/authelia:latest`
+- Container name: `authelia`
+- Restart policy: `unless-stopped`
+- Port mapping: `9091:9091`
+- Services:
+  - `authelia` — main authentication server
+  - `redis` — session and cache store with password authentication
+  - `postgres` — identity and user storage
+- Environment variables:
+  - `AUTHELIA_JWT_SECRET` — JWT signing key for password reset tokens
+  - `AUTHELIA_SESSION_SECRET` — session encryption key
+  - `AUTHELIA_STORAGE_ENCRYPTION_KEY` — database encryption key
+  - `AUTHELIA_REDIS_PASSWORD` — Redis authentication password
+  - `AUTHELIA_STORAGE_POSTGRES_PASSWORD` — Postgres password
+- Redis healthcheck: authenticated ping with password
+- Postgres healthcheck: `pg_isready` with user verification
+- Volumes:
+  - `${DATA_DIR}/authelia/config:/config`
+  - `${DATA_DIR}/authelia/redis:/data`
+  - `${DATA_DIR}/authelia/postgres:/var/lib/postgresql/data`
+- Internal network: `authelia_internal` isolates database and cache from external traffic.
+- Healthcheck: `curl -f http://localhost:9091/api/health`
 
 ### Home Assistant
 
@@ -57,6 +84,30 @@ Each service also loads its own local `.env` file when required.
 - Redis provides session caching and queueing.
 - Postgres is tuned for NVMe with custom command options.
 - Hardware passthrough: `/dev/dri` for Intel QuickSync acceleration.
+
+### Vikunja
+
+- Image: `vikunja/vikunja:latest`
+- Container name: `vikunja`
+- Restart policy: `unless-stopped`
+- Port mapping: `${VIKUNJA_HTTP_PORT:-3456}:3456`
+- Services:
+  - `vikunja` — main task management application
+  - `vikunja-db` — Postgres database for task storage
+  - `vikunja-redis` — Redis for caching
+- Environment variables:
+  - `VIKUNJA_DATABASE_TYPE` — database type (postgres)
+  - `VIKUNJA_DATABASE_HOST` — database hostname
+  - `VIKUNJA_DATABASE_USER` — database user
+  - `VIKUNJA_DATABASE_PASSWORD` — database password
+  - `VIKUNJA_REDIS_URL` — Redis connection URL
+  - `VIKUNJA_PUBLIC_URL` — public domain for Vikunja
+  - `VIKUNJA_SERVER_SECRET` — server encryption key
+- Volumes:
+  - `${DATA_DIR}/vikunja:/var/lib/vikunja`
+  - `${DATA_DIR}/vikunja/db:/var/lib/postgresql/data`
+  - `${DATA_DIR}/vikunja/redis:/data`
+- Healthcheck: `curl -f http://localhost:3456/health`
 
 ### Nextcloud
 

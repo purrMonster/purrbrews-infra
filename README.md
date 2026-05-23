@@ -9,8 +9,7 @@ NOTE: ALL DOCUMENTATIONS ARE AI GENERATED.
 | --- | --- |
 | Maintenance | 🟢 Active / In progress |
 | Current Run Status | 🟢 RUNNING |
-| Last Updated | `2026-05-15` |
-| Last Updated | `2026-05-22` |
+| Last Updated | `2026-05-24` |
 | Total Services | `7` stacks + support directories |
 | Healthchecks | ✅ Home Assistant, Immich, Vaultwarden, Nextcloud, Paperless-NGX |
 
@@ -21,11 +20,13 @@ NOTE: ALL DOCUMENTATIONS ARE AI GENERATED.
 ### Included stacks
 
 - `arr-stack/` — app stack utilities
-- `authentik/` — authentication and identity management
+- `authelia/` — authentication and SSO gateway with Redis and Postgres
 - `homeassistant/` — automation platform with hardware passthrough
 - `immich/` — photo library, ML processing, Redis, Postgres
 - `nextcloud/` — file sync and collaboration
 - `vaultwarden/` — password management with SMTP
+- `vikunja/` — task and project management
+- `paperless-ngx/` — document scanning and OCR
 - `env` — centralized environment configuration
 
 ### Service icons
@@ -34,7 +35,8 @@ NOTE: ALL DOCUMENTATIONS ARE AI GENERATED.
 - 📸 Immich
 - 🔐 Vaultwarden
 - 📦 Nextcloud
-- 🧩 Authentik
+- ✅ Vikunja
+- 🔐 Authelia
 
 ---
 

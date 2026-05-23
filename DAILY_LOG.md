@@ -1,5 +1,30 @@
 # 📅 DAILY LOG
 
+**Documentation generated as of commit `f83a510`**
+
+---
+
+## 2026-05-24
+
+- Authelia service (`authelio/`) implementation and standardization (commit `558f77f`):
+  - Added `version: "3.9"` specification.
+  - Implemented `env_file` loading from `../env` and local `.env` for centralized and service-specific secrets.
+  - Added healthchecks with authenticated Redis ping and Postgres readiness verification.
+  - Restructured environment variables for clarity (`AUTHELIA_POSTGRES_USER`, `AUTHELIA_REDIS_PASSWORD`, `AUTHELIA_STORAGE_POSTGRES_PASSWORD`).
+  - Created `.env` template with secure secret placeholders.
+- Network configuration improvements (commit `f83a510`):
+  - Removed proxy network requirements from authelia compose, allowing standalone deployments.
+- Repository: Created root-level `.env` file aligned with sibling service env patterns.
+- Code verification completed: identified and documented env file naming inconsistencies across services for future standardization.
+
+## 2026-05-23
+
+- Vikunja service added and stabilized:
+  - Initial vikunja support with Postgres and Redis backend (commit `db7c585`).
+  - VIKUNJA configuration fixes for database connectivity (commit `fe0a017`).
+  - User and database configuration refinements (commits `bfd54ba`, `085b02f`).
+- Documentation updated to include full vikunja service details, deployment steps, and environment configuration.
+
 ## 2026-05-22
 
 - Changed system port configuration and related compose/network adjustments.
