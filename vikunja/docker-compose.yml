@@ -10,7 +10,10 @@ services:
       - ../env
       - env
     environment:
-      - VIKUNJA_DATABASE_URL=${VIKUNJA_DATABASE_URL}
+      - VIKUNJA_DATABASE_TYPE=postgres
+      - VIKUNJA_DATABASE_HOST=vikunja-db:5432
+      - VIKUNJA_DATABASE_USER=vikunja
+      - VIKUNJA_DATABASE_PASSWORD=${VIKUNJA_DB_PASS}
       - VIKUNJA_REDIS_URL=${VIKUNJA_REDIS_URL}
       - VIKUNJA_PUBLIC_URL=https://tasks.${DOMAIN}
       - VIKUNJA_SERVER_SECRET=${VIKUNJA_SERVER_SECRET}
