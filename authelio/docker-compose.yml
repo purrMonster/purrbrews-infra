@@ -16,8 +16,9 @@ services:
     volumes:
       # Maps to your global data directory structure
       - ${DATA_DIR}/authelia/config:/config
+    ports:
+      - "9091:9091"
     networks:
-      - proxy
       - authelia_internal
     depends_on:
       redis:
@@ -74,8 +75,5 @@ services:
 
 networks:
   proxy:
-    # Connects to your reverse proxy (e.g., Traefik, NPM) for SSO routing
-    external: true
   authelia_internal:
-    # Zero-trust: Isolates DB and Redis from the rest of the homelab network
     internal: true
