@@ -5,6 +5,7 @@ services:
     image: vikunja/vikunja:latest
     container_name: vikunja
     restart: unless-stopped
+    user: 0:0
     env_file:
       - ../env
       - env
