@@ -1,0 +1,10 @@
+# Vikunja service environment
+# Keep database and Redis credentials in the parent env file and keep this file for service-specific secrets.
+VIKUNJA_SERVER_SECRET=change-me
+VIKUNJA_HTTP_PORT=3456
+VIKUNJA_DB_PASS=change-me
+VIKUNJA_DATABASE_URL=postgres://vikunja:${VIKUNJA_DB_PASS}@vikunja-db:5432/vikunja?sslmode=disable
+VIKUNJA_REDIS_URL=redis://vikunja-redis:6379
+
+# Optional: override allowed origins if you need custom trusted hosts.
+# VIKUNJA_ALLOWED_ORIGINS=https://tasks.example.com,http://localhost:3456

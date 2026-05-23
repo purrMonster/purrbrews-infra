@@ -1,0 +1,52 @@
+version: "3.9"
+
+services:
+  vikunja:
+    image: vikunja/vikunja:latest
+    container_name: vikunja
+    restart: unless-stopped
+    env_file:
+      - ../env
+      - env
+    environment:
+      - VIKUNJA_DATABASE_URL=${VIKUNJA_DATABASE_URL}
+      - VIKUNJA_REDIS_URL=${VIKUNJA_REDIS_URL}
+      - VIKUNJA_PUBLIC_URL=https://tasks.${DOMAIN}
+      - VIKUNJA_SERVER_SECRET=${VIKUNJA_SERVER_SECRET}
+      - VIKUNJA_ALLOWED_ORIGINS=https://tasks.${DOMAIN},http://192.168.0.11:${VIKUNJA_HTTP_PORT:-3456}
+    depends_on:
+      - vikunja-db
+      - vikunja-redis
+    ports:
+      - "${VIKUNJA_HTTP_PORT:-3456}:3456"
+    volumes:
+      - ${DATA_DIR}/vikunja:/var/lib/vikunja
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:3456/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  vikunja-db:
+    image: postgres:16-alpine
+    container_name: vikunja-db
+    restart: always
+    env_file:
+      - ../env
+      - env
+    environment:
+      - POSTGRES_USER=vikunja
+      - POSTGRES_PASSWORD=${VIKUNJA_DB_PASS}
+      - POSTGRES_DB=vikunja
+    volumes:
+      - ${DATA_DIR}/vikunja/db:/var/lib/postgresql/data
+
+  vikunja-redis:
+    image: redis:7-alpine
+    container_name: vikunja-redis
+    restart: always
+    env_file:
+      - ../env
+      - env
+    volumes:
+      - ${DATA_DIR}/vikunja/redis:/data
