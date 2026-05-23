@@ -1,0 +1,8 @@
+# Authelia service-specific secrets and defaults
+AUTHELIA_JWT_SECRET="replace_with_a_secure_random_string"
+AUTHELIA_SESSION_SECRET="replace_with_a_secure_random_string"
+AUTHELIA_STORAGE_ENCRYPTION_KEY="replace_with_a_secure_random_string"
+AUTHELIA_REDIS_PASSWORD="replace_with_a_secure_random_password"
+AUTHELIA_STORAGE_POSTGRES_PASSWORD="replace_with_a_secure_random_password"
+AUTHELIA_POSTGRES_USER="authelia"
+AUTHELIA_POSTGRES_DB="authelia"
