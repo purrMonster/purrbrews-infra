@@ -9,8 +9,8 @@ NOTE: ALL DOCUMENTATIONS ARE AI GENERATED.
 | --- | --- |
 | Maintenance | 🟢 Active / In progress |
 | Current Run Status | 🟢 RUNNING |
-| Last Updated | `2026-05-24` |
-| Total Services | `7` stacks + support directories |
+| Last Updated | `2026-06-04` |
+| Total Services | `7` service stacks + support files |
 | Healthchecks | ✅ Home Assistant, Immich, Vaultwarden, Nextcloud, Paperless-NGX |
 
 ---
@@ -19,8 +19,7 @@ NOTE: ALL DOCUMENTATIONS ARE AI GENERATED.
 
 ### Included stacks
 
-- `arr-stack/` — app stack utilities
-- `authelia/` — authentication and SSO gateway with Redis and Postgres
+- `authelio/` — authentication and SSO gateway with Redis and Postgres
 - `homeassistant/` — automation platform with hardware passthrough
 - `immich/` — photo library, ML processing, Redis, Postgres
 - `nextcloud/` — file sync and collaboration
@@ -36,7 +35,7 @@ NOTE: ALL DOCUMENTATIONS ARE AI GENERATED.
 - 🔐 Vaultwarden
 - 📦 Nextcloud
 - ✅ Vikunja
-- 🔐 Authelia
+- 🔐 Authelio
 
 ---
 
@@ -50,9 +49,8 @@ NOTE: ALL DOCUMENTATIONS ARE AI GENERATED.
 
 ## 🚀 Runtime Metrics
 
-- `Docker Compose` stacks: `homeassistant`, `immich`, `vaultwarden`
-- `Docker Compose` stacks: `homeassistant`, `immich`, `vaultwarden`, `nextcloud`, `paperless-ngx`
-- `Env` sources: `env` (shared) + service-local env families
+- `Docker Compose` stacks: `authelio`, `homeassistant`, `immich`, `nextcloud`, `paperless-ngx`, `vaultwarden`, `vikunja`
+- `Env` sources: `env` (shared) + service-local env files
 - `Persistent storage`: `${DATA_DIR}`, `${MEDIA_DIR}`
 - `Hardware passthrough`: `/dev`, `/run/dbus`, `/dev/dri`
 - `Security`: admin tokens, SMTP auth, rate limiting, no open signups

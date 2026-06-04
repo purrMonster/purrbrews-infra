@@ -1,11 +1,33 @@
 # 📅 DAILY LOG
 
-**Documentation generated as of commit `f83a510`**
+**Documentation generated as of commit `c347faa`**
 
 ---
 
+## 2026-06-04
+
+- Linux voice assistant (LVA) service removal (commit `c347faa`):
+  - Removed `linux-voice-assistant/` service from the stack.
+  - Service was experimental and deemed not essential for the current infrastructure.
+- Documentation updates for consistency:
+  - Updated directory references from `authelia/` to `authelio/` across all markdown files.
+  - Updated `INFRA.md`, `INSTALLATION_GUIDES.md`, `README.md`, and `DAILY_LOG.md` for accuracy.
+  - Current service count: 7 stacks (`authelio`, `homeassistant`, `immich`, `nextcloud`, `paperless-ngx`, `vaultwarden`, `vikunja`).
+- Last update date bumped to `2026-06-04` in system status documentation.
+
+## 2026-05-25
+
+- Linux voice assistant (LVA) service added (commit `1486450`):
+  - New service addition: `linux-voice-assistant/` with full Docker Compose orchestration.
+  - Included local environment configuration for service-specific settings.
+  - Initial experimental support for voice assistant integration within the homelab stack.
+
 ## 2026-05-24
 
+- Documentation update (commit `c24f2be`):
+  - Comprehensive updates to `DAILY_LOG.md`, `INFRA.md`, `INSTALLATION_GUIDES.md`, and `README.md`.
+  - Fixed markdown formatting and layout inconsistencies.
+  - Added detailed service deployment guides and architecture documentation.
 - Authelia service (`authelio/`) implementation and standardization (commit `558f77f`):
   - Added `version: "3.9"` specification.
   - Implemented `env_file` loading from `../env` and local `.env` for centralized and service-specific secrets.

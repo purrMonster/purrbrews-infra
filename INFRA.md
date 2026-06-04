@@ -7,15 +7,12 @@ It provides a modular service architecture for Home Assistant, Immich, and Vault
 
 ## Architecture Summary
 
-- `authelia/` — Authentication server and Single Sign-On (SSO) gateway with Redis session cache and Postgres backend.
+- `authelio/` — Authentication server and Single Sign-On (SSO) gateway with Redis session cache and Postgres backend.
 - `homeassistant/` — Home Assistant container with host networking and hardware passthrough for Zigbee/Z-Wave/Bluetooth.
 - `immich/` — Self-hosted photo management platform with Redis, Postgres, and machine learning services.
 - `vaultwarden/` — Lightweight password manager with SMTP integration and hardened login controls.
 - `vikunja/` — Task and project management platform with Postgres database and Redis caching.
 - `env` — Shared environment variable definitions used across services.
-
-- `nextcloud/` — Personal cloud and collaboration stack (Web UI, PHP-FPM, MariaDB/Postgres, optional Redis/filecache).
-- `paperless-ngx/` — Document scanning and OCR service backed by Postgres and media storage.
 
 ## Environment Management
 
@@ -34,14 +31,14 @@ Each service also loads its own local `.env` file when required.
 
 ## Service Details
 
-### Authelia
+### Authelio
 
 - Image: `authelia/authelia:latest`
-- Container name: `authelia`
+- Container name: `authelio`
 - Restart policy: `unless-stopped`
 - Port mapping: `9091:9091`
 - Services:
-  - `authelia` — main authentication server
+  - `authelio` — main authentication server
   - `redis` — session and cache store with password authentication
   - `postgres` — identity and user storage
 - Environment variables:
@@ -53,10 +50,10 @@ Each service also loads its own local `.env` file when required.
 - Redis healthcheck: authenticated ping with password
 - Postgres healthcheck: `pg_isready` with user verification
 - Volumes:
-  - `${DATA_DIR}/authelia/config:/config`
-  - `${DATA_DIR}/authelia/redis:/data`
-  - `${DATA_DIR}/authelia/postgres:/var/lib/postgresql/data`
-- Internal network: `authelia_internal` isolates database and cache from external traffic.
+  - `${DATA_DIR}/authelio/config:/config`
+  - `${DATA_DIR}/authelio/redis:/data`
+  - `${DATA_DIR}/authelio/postgres:/var/lib/postgresql/data`
+- Internal network: `authelio_internal` isolates database and cache from external traffic.
 - Healthcheck: `curl -f http://localhost:9091/api/health`
 
 ### Home Assistant

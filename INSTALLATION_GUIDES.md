@@ -41,15 +41,15 @@ IMAP_HOST="imap.example.com"
 IMAP_PORT=993
 ```
 
-## 2. Deploy Authelia
+## 2. Deploy Authelio
 
 1. Change into the service directory:
 
 ```bash
-cd authelia
+cd authelio
 ```
 
-2. Configure secrets in `authelia/.env`:
+2. Configure secrets in `authelio/.env`:
 
 ```bash
 AUTHELIA_JWT_SECRET="generate-a-secure-random-string"
