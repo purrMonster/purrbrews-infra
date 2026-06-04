@@ -47,4 +47,4 @@ services:
       - "10200:10200"
     volumes:
       - ${DATA_DIR}/piper-data:/data
-    command: --voice en_IN-cmu-medium
+    command: --voice ${PIPER_VOICE}
