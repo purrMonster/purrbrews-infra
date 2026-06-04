@@ -3,10 +3,8 @@ services:
     container_name: homeassistant
     image: ghcr.io/home-assistant/home-assistant:stable
     restart: unless-stopped
-    # High priority to prevent automation delays during heavy Immich processing
     cpu_shares: 1024
     
-    # Required for Bluetooth and USB Zigbee/Z-Wave stick discovery
     privileged: true
     network_mode: host
     
@@ -23,12 +21,30 @@ services:
       - ${DATA_DIR}/homeassistant:/config
       - /etc/localtime:/etc/localtime:ro
       - /run/dbus:/run/dbus:ro
-      - /dev:/dev # Complete hardware access for sticks/sensors
-      
-    # Max Power: Ensure HASS starts after your system is fully ready
+      - /dev:/dev 
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8123"]
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 40s
+  
+  whisper:
+    image: rhasspy/wyoming-whisper:latest
+    container_name: wyoming-whisper
+    restart: unless-stopped
+    ports:
+      - "10300:10300"
+    volumes:
+      - ${DATA_DIR}/whisper-data:/data
+    command: --model base-int8 --language en
+
+  piper:
+    image: rhasspy/wyoming-piper:latest
+    container_name: wyoming-piper
+    restart: unless-stopped
+    ports:
+      - "10200:10200"
+    volumes:
+      - ${DATA_DIR}/piper-data:/data
+    command: --voice en_IN-cmu-medium
