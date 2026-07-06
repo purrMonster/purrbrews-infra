@@ -8,11 +8,11 @@ services:
     ports:
       - "5678:5678"  
     environment:
-      - N8N_HOST=n8n.${DOMAIN_NAME}
+      - N8N_HOST=n8n.${DOMAIN}
       - N8N_PORT=5678
       - N8N_PROTOCOL=https                 
       - NODE_ENV=production
-      - WEBHOOK_URL=https://n8n.${DOMAIN_NAME}/
+      - WEBHOOK_URL=https://n8n.${DOMAIN}/
       - GENERIC_TIMEZONE=Asia/Kolkata
       - N8N_ENFORCE_SETTINGS_FILE_FOR_ALLOWED_IP_ADDRESSES_IN_WEBHOOKS=false
       
